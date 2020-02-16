@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "xyz.sangcomz"
-version = "0.0.1"
+version = "0.0.2"
 
 repositories {
     mavenCentral()
@@ -31,16 +31,26 @@ tasks {
     }
 }
 
+
+val sourcesJar by tasks.creating(Jar::class) {
+    archiveClassifier.set("sources")
+    from(sourceSets.getByName("main").allSource)
+    from("LICENCE.md") {
+        into("META-INF")
+    }
+}
+
+
 val artifactName = project.name
 val artifactGroup = project.group.toString()
 val artifactVersion = project.version.toString()
 
 val pomUrl = "https://github.com/sangcomz/gradle-slack-upload-plugin"
 val pomScmUrl = "https://github.com/sangcomz/gradle-slack-upload-plugin"
-val pomIssueUrl = "https://github.com/sangcomz/gradle-slack-upload-pluginissues"
+val pomIssueUrl = "https://github.com/sangcomz/gradle-slack-upload-plugin/issues"
 val pomDesc = "https://github.com/sangcomz/gradle-slack-upload-plugin"
 
-val githubRepo = "sangcomz/gradle-slack-upload-plugin"
+val githubRepository = "sangcomz/gradle-slack-upload-plugin"
 val githubReadme = "README.md"
 
 val pomLicenseName = "The Apache Software License, Version 2.0"
@@ -56,6 +66,7 @@ publishing {
             groupId = artifactGroup
             artifactId = artifactName
             version = artifactVersion
+            artifact(sourcesJar)
             from(components["java"])
 
             pom.withXml {
@@ -95,7 +106,7 @@ bintray {
         repo = "maven"
         name = artifactName
         userOrg = "sangcomz"
-        githubRepo = githubRepo
+        githubRepo = githubRepository
         vcsUrl = pomScmUrl
         description = "Upload files to Slack using Gradle Plugin"
         setLabels("kotlin", "slack", "uploader", "gradle-plugin")
