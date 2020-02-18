@@ -13,8 +13,8 @@
 ```
 # gradle-slack-upload-plugin
 
-## What's New in 0.0.2? :tada:
-- [Release] Release `gradle-slack-upload-plugin` :tada:
+## What's New in 0.0.3? :tada:
+- [Feature] Support Multi File
 
 ## How to Use
 
@@ -29,7 +29,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "xyz.sangcomz:gradle-slack-upload-plugin:0.0.2"
+        classpath "xyz.sangcomz:gradle-slack-upload-plugin:0.0.3"
     }
 }
 ```
@@ -38,24 +38,37 @@ buildscript {
 apply plugin: 'xyz.sangcomz.gradle'
 
 slackUploader {
-    token "your_slack_bot_api_token"
-    channels "your_channel1,your_channel2"
-    filePath "your_file_path"
-    title "your_file_title"
-    initialComment "your_initial_comment"
+    token = "your_slack_bot_api_token" 
+    channels = "your_channel1,your_channel2"
+    title = "your_file_title" (optional)
+    initialComment = "your_initial_comment" (optional)
+    filePath = "your_file_path" 
+    filePaths = ["your_file_path1.txt", "your_file_path2.txt", "your_file_path3.txt"]
+    zipName = "your_zip_file_name" (optional)
+    zipFilePath = "your_zip_file_path" (optional)
+    deleteZipFileAfterUpload = false (optional)
 }
 
 //example
 slackUploader {
-    token "my_slack_bot_api_token"
-    channels "wowchannel"
-    title "File Title"
-    initialComment "Upload Sample.txt"
-    filePath "sample.txt"
+    token = "my_slack_bot_api_token"
+    channels = "wowchannel"
+    title = "File Title"
+    initialComment = "Upload Sample.txt"
+    //filePath = "sample.txt"
+    filePaths = ["sample.txt", "sample2.txt", "sample3.txt"]
+    zipName = "wowUploada"
+    zipFilePath = "build/zip"
+    deleteZipFileAfterUpload = false
 }
 ```
+filePath or filePaths require input.
 
-<img src="/image/example.png">
+#### FilePath Upload Result
+<img src="/image/example.png" height="50%">
+
+#### FilePaths Upload Result
+<img src="/image/examplezip.png" height="50%">
 
 # Contribute
 Welcome any contributions.

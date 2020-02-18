@@ -5,10 +5,12 @@ plugins {
     maven
     `maven-publish`
     id("com.jfrog.bintray") version "1.8.4"
+    id("com.gradle.plugin-publish") version "0.10.1"
+    `java-gradle-plugin`
 }
 
 group = "xyz.sangcomz"
-version = "0.0.2"
+version = "0.0.3"
 
 repositories {
     mavenCentral()
@@ -60,6 +62,8 @@ val pomLicenseDist = "repo"
 val pomDeveloperId = "sangcomz"
 val pomDeveloperName = "Seokwon Jeong"
 
+val pluginDescription = "Upload files to Slack using Gradle Plugin"
+
 publishing {
     publications {
         create<MavenPublication>("gradle-slack-upload-plugin") {
@@ -108,7 +112,7 @@ bintray {
         userOrg = "sangcomz"
         githubRepo = githubRepository
         vcsUrl = pomScmUrl
-        description = "Upload files to Slack using Gradle Plugin"
+        description = pluginDescription
         setLabels("kotlin", "slack", "uploader", "gradle-plugin")
         setLicenses("Apache-2.0")
         desc = description
@@ -121,6 +125,22 @@ bintray {
             desc = pomDesc
             released = Date().toString()
             vcsTag = artifactVersion
+        }
+    }
+}
+
+
+tasks {
+    "uploadArchives"(Upload::class) {
+        repositories {
+            withConvention(MavenRepositoryHandlerConvention::class) {
+                mavenDeployer {
+                    withGroovyBuilder {
+                        "repository"("url" to uri("repo")) {
+                        }
+                    }
+                }
+            }
         }
     }
 }
