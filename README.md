@@ -65,10 +65,10 @@ slackUploader {
 filePath or filePaths require input.
 
 #### FilePath Upload Result
-<img src="/image/example.png" height="50%">
+<img src="/image/example.png" width="50%">
 
 #### FilePaths Upload Result
-<img src="/image/examplezip.png" height="50%">
+<img src="/image/examplezip.png" width="50%">
 
 # Contribute
 Welcome any contributions.
