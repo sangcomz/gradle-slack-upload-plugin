@@ -98,6 +98,7 @@ slackUploader {
 
 </details>
 
+#### Example
 ```groovy
 slackUploader {
     token = "my_slack_bot_api_token"
