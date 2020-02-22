@@ -13,7 +13,7 @@
 ```
 # gradle-slack-upload-plugin
 
-## What's New in 0.0.3? :tada:
+## What's New in 1.0.0? :tada:
 - [Feature] Support Multi File
 
 ## How to Use
@@ -23,16 +23,62 @@
 <img src="/image/slackbotapi.png">
 
 ### Usage
+<details open><summary>Kotlin</summary>
+
+```kotlin
+buildscript {
+    repositories {
+        maven {
+            url = uri("/Users/sangcomz/projects/gradle-slack-upload-plugin/repo")
+        }
+    }
+
+    dependencies {
+        classpath("xyz.sangcomz:gradle-slack-upload-plugin:0.0.4")
+    }
+}
+```
+
+</details>
+
+<details><summary>Groovy</summary>
+
 ```groovy
 buildscript {
     repositories {
         jcenter()
     }
     dependencies {
-        classpath "xyz.sangcomz:gradle-slack-upload-plugin:0.0.3"
+        classpath "xyz.sangcomz:gradle-slack-upload-plugin:1.0.0"
     }
 }
 ```
+
+</details>
+
+<details open><summary>Kotlin</summary>
+
+```kotlin
+apply {
+    plugin("xyz.sangcomz.gradle")
+}
+
+configure<xyz.sangcomz.gradle.SlackUploadPluginExtension> {
+    token = "your_slack_bot_api_token" 
+    channels = "your_channel1,your_channel2"
+    title = "your_file_title" (optional)
+    initialComment = "your_initial_comment" (optional)
+    filePath = "your_file_path" 
+    filePaths = arrayOf("your_file_path1.txt", "your_file_path2.txt", "your_file_path3.txt")
+    zipName = "your_zip_file_name" (optional)
+    zipFilePath = "your_zip_file_path" (optional)
+    deleteZipFileAfterUpload = false (optional)
+}
+```
+
+</details>
+
+<details><summary>Groovy</summary>
 
 ```groovy
 apply plugin: 'xyz.sangcomz.gradle'
@@ -48,8 +94,11 @@ slackUploader {
     zipFilePath = "your_zip_file_path" (optional)
     deleteZipFileAfterUpload = false (optional)
 }
+```
 
-//example
+</details>
+
+```groovy
 slackUploader {
     token = "my_slack_bot_api_token"
     channels = "wowchannel"

@@ -1,16 +1,30 @@
 import java.util.*
 
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath("xyz.sangcomz:gradle-slack-upload-plugin:1.0.0")
+    }
+}
+
 plugins {
     kotlin("jvm") version "1.3.61"
+    `kotlin-dsl`
     maven
     `maven-publish`
     id("com.jfrog.bintray") version "1.8.4"
-    id("com.gradle.plugin-publish") version "0.10.1"
-    `java-gradle-plugin`
+}
+
+
+apply {
+    plugin("xyz.sangcomz.gradle")
 }
 
 group = "xyz.sangcomz"
-version = "0.0.3"
+version = "1.0.0"
 
 repositories {
     mavenCentral()
@@ -19,8 +33,6 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
-    implementation(gradleApi())
-    implementation(localGroovy())
     implementation("com.github.kittinunf.fuel:fuel:2.2.1")
 }
 
